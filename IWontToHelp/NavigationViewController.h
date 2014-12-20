@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  UITableViewController+NavigationViewController.h
 //  IWontToHelp
 //
 //  Created by Mac on 12/17/14.
@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
+@interface UITableViewController (NavigationViewController)
 
 @end
-
