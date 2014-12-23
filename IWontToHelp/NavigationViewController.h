@@ -1,13 +1,13 @@
 //
-//  UITableViewController+NavigationViewController.h
-//  IWontToHelp
+//  NavigationViewController.h
+//  SlideOutMenu
 //
-//  Created by Mac on 12/17/14.
-//  Copyright (c) 2014 Mac. All rights reserved.
+//  Created by Jared Davidson on 7/14/14.
+//  Copyright (c) 2014 Archetapp. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface UITableViewController (NavigationViewController)
+@interface NavigationViewController : UITableViewController
 
 @end

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F20A27F91A498E4F00E10B67 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C8FB2B1A45A4C800D0C968 /* SWRevealViewController.m */; };
+		F20A27FD1A498FF200E10B67 /* SWRevealViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = F2C8FB2A1A45A4C800D0C968 /* SWRevealViewController.h */; };
+		F20A28001A4993CD00E10B67 /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20A27FF1A4993CD00E10B67 /* NavigationViewController.m */; };
 		F220C8E81A42F0FF003BE9CD /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F220C8E71A42F0FF003BE9CD /* StartViewController.m */; };
 		F2558DBC1A4586120056AB7F /* profileDataBackgroundMini@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2558DBB1A4586120056AB7F /* profileDataBackgroundMini@2x.png */; };
 		F2558DBE1A45881F0056AB7F /* cityButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2558DBD1A45881F0056AB7F /* cityButton@2x.png */; };
@@ -18,7 +21,6 @@
 		F27D19401A44167500D17136 /* menuButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F27D193F1A44167500D17136 /* menuButton@2x.png */; };
 		F27D19441A442F4900D17136 /* HelpButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F27D19411A442F4900D17136 /* HelpButton@2x.png */; };
 		F27D19461A442F4900D17136 /* HelpTextBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F27D19431A442F4900D17136 /* HelpTextBackground@2x.png */; };
-		F2C8FB2C1A45A4C800D0C968 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C8FB2B1A45A4C800D0C968 /* SWRevealViewController.m */; };
 		F2C9FDD21A433A5000CB2745 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C9FDD11A433A5000CB2745 /* LogInViewController.m */; };
 		F2C9FDD41A433C3D00CB2745 /* logInBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2C9FDD31A433C3D00CB2745 /* logInBackground@2x.png */; };
 		F2C9FDD61A433F3600CB2745 /* LabelBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2C9FDD51A433F3600CB2745 /* LabelBackground@2x.png */; };
@@ -32,7 +34,6 @@
 		F2E204421A42249300346778 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E204411A42249300346778 /* Images.xcassets */; };
 		F2E204451A42249300346778 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E204431A42249300346778 /* LaunchScreen.xib */; };
 		F2E204511A42249300346778 /* IWontToHelpTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E204501A42249300346778 /* IWontToHelpTests.m */; };
-		F2E2046B1A42307100346778 /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E2046A1A42307100346778 /* NavigationViewController.m */; };
 		F2E2046D1A42383700346778 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E2046C1A42383700346778 /* MapKit.framework */; };
 		F2ED12C61A44434400E5D435 /* helpInputBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ED12C51A44434400E5D435 /* helpInputBackground@2x.png */; };
 /* End PBXBuildFile section */
@@ -48,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F20A27FE1A4993CD00E10B67 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		F20A27FF1A4993CD00E10B67 /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		F220C8E61A42F0FF003BE9CD /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
 		F220C8E71A42F0FF003BE9CD /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
 		F2558DBB1A4586120056AB7F /* profileDataBackgroundMini@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileDataBackgroundMini@2x.png"; sourceTree = "<group>"; };
@@ -82,8 +85,6 @@
 		F2E2044A1A42249300346778 /* IWontToHelpTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IWontToHelpTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E2044F1A42249300346778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2E204501A42249300346778 /* IWontToHelpTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IWontToHelpTests.m; sourceTree = "<group>"; };
-		F2E204691A42307100346778 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NavigationViewController.h; path = ../../../Downloads/SlideOutMenu/SlideOutMenu/NavigationViewController.h; sourceTree = "<group>"; };
-		F2E2046A1A42307100346778 /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationViewController.m; path = ../../../Downloads/SlideOutMenu/SlideOutMenu/NavigationViewController.m; sourceTree = "<group>"; };
 		F2E2046C1A42383700346778 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F2ED12C51A44434400E5D435 /* helpInputBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "helpInputBackground@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,12 +162,12 @@
 		F2E204331A42249300346778 /* IWontToHelp */ = {
 			isa = PBXGroup;
 			children = (
-				F2E204691A42307100346778 /* NavigationViewController.h */,
-				F2E2046A1A42307100346778 /* NavigationViewController.m */,
 				F2E204381A42249300346778 /* AppDelegate.h */,
 				F2C9FDD01A433A5000CB2745 /* LogInViewController.h */,
 				F2C9FDD11A433A5000CB2745 /* LogInViewController.m */,
 				F2E204391A42249300346778 /* AppDelegate.m */,
+				F20A27FE1A4993CD00E10B67 /* NavigationViewController.h */,
+				F20A27FF1A4993CD00E10B67 /* NavigationViewController.m */,
 				F2E2043B1A42249300346778 /* ViewController.h */,
 				F2E2043C1A42249300346778 /* ViewController.m */,
 				F2E2043E1A42249300346778 /* Main.storyboard */,
@@ -323,11 +324,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2C8FB2C1A45A4C800D0C968 /* SWRevealViewController.m in Sources */,
+				F20A27FD1A498FF200E10B67 /* SWRevealViewController.h in Sources */,
+				F20A27F91A498E4F00E10B67 /* SWRevealViewController.m in Sources */,
 				F2C9FDD21A433A5000CB2745 /* LogInViewController.m in Sources */,
 				F2E2043D1A42249300346778 /* ViewController.m in Sources */,
+				F20A28001A4993CD00E10B67 /* NavigationViewController.m in Sources */,
 				F2E2043A1A42249300346778 /* AppDelegate.m in Sources */,
-				F2E2046B1A42307100346778 /* NavigationViewController.m in Sources */,
 				F220C8E81A42F0FF003BE9CD /* StartViewController.m in Sources */,
 				F2E204371A42249300346778 /* main.m in Sources */,
 			);
