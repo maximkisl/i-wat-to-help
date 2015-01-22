@@ -43,6 +43,9 @@
 		E5E3D1F214DA20220074DA18 /* PAWNewUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E3D1F014DA20210074DA18 /* PAWNewUserViewController.m */; };
 		E5E3D1F314DA20220074DA18 /* PAWNewUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E3D1F114DA20210074DA18 /* PAWNewUserViewController.xib */; };
 		F24B05AA1A52E6ED004CECCF /* MainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F24B05A91A52E6ED004CECCF /* MainVC.m */; };
+		F2604F721A66BAD7002D5AA3 /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2604F711A66BAD7002D5AA3 /* CustomIOS7AlertView.m */; };
+		F2B699511A6FE51F00B4BCEC /* mainF.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B6994F1A6FE51F00B4BCEC /* mainF.m */; };
+		F2B699521A6FE51F00B4BCEC /* mainF.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2B699501A6FE51F00B4BCEC /* mainF.xib */; };
 		F2ECB56D1A5D96170027F423 /* VKApiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ECB50B1A5D96170027F423 /* VKApiObject.m */; };
 		F2ECB56E1A5D96170027F423 /* VKApiObjectArray.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ECB50D1A5D96170027F423 /* VKApiObjectArray.m */; };
 		F2ECB56F1A5D96170027F423 /* VKAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ECB50F1A5D96170027F423 /* VKAudio.m */; };
@@ -100,8 +103,8 @@
 		F2FA4D261A514C8C0023AB45 /* UIViewController+AMSlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FA4D1F1A514C8C0023AB45 /* UIViewController+AMSlideMenu.m */; };
 		F2FA4D2B1A514DAC0023AB45 /* LeftMenuTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FA4D291A514DAC0023AB45 /* LeftMenuTVC.m */; };
 		F2FA4D2C1A514DAC0023AB45 /* LeftMenuTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2FA4D2A1A514DAC0023AB45 /* LeftMenuTVC.xib */; };
-		F2FA4D341A514DB70023AB45 /* FirstVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FA4D2F1A514DB70023AB45 /* FirstVC.m */; };
-		F2FA4D351A514DB70023AB45 /* FirstVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2FA4D301A514DB70023AB45 /* FirstVC.xib */; };
+		F2FA4D341A514DB70023AB45 /* mainFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FA4D2F1A514DB70023AB45 /* mainFile.m */; };
+		F2FA4D351A514DB70023AB45 /* mainFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2FA4D301A514DB70023AB45 /* mainFile.xib */; };
 		F2FA4D361A514DB70023AB45 /* SecondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FA4D321A514DB70023AB45 /* SecondVC.m */; };
 		F2FA4D371A514DB70023AB45 /* SecondVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2FA4D331A514DB70023AB45 /* SecondVC.xib */; };
 /* End PBXBuildFile section */
@@ -159,6 +162,11 @@
 		E5E3D1F114DA20210074DA18 /* PAWNewUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PAWNewUserViewController.xib; sourceTree = "<group>"; };
 		F24B05A81A52E6ED004CECCF /* MainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainVC.h; path = AnyWall/MainVC.h; sourceTree = SOURCE_ROOT; };
 		F24B05A91A52E6ED004CECCF /* MainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainVC.m; path = AnyWall/MainVC.m; sourceTree = SOURCE_ROOT; };
+		F2604F701A66BAD7002D5AA3 /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
+		F2604F711A66BAD7002D5AA3 /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
+		F2B6994E1A6FE51F00B4BCEC /* mainF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainF.h; sourceTree = "<group>"; };
+		F2B6994F1A6FE51F00B4BCEC /* mainF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainF.m; sourceTree = "<group>"; };
+		F2B699501A6FE51F00B4BCEC /* mainF.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mainF.xib; sourceTree = "<group>"; };
 		F2ECB50A1A5D96170027F423 /* VKApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKApiObject.h; sourceTree = "<group>"; };
 		F2ECB50B1A5D96170027F423 /* VKApiObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKApiObject.m; sourceTree = "<group>"; };
 		F2ECB50C1A5D96170027F423 /* VKApiObjectArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKApiObjectArray.h; sourceTree = "<group>"; };
@@ -275,9 +283,9 @@
 		F2FA4D281A514DAC0023AB45 /* LeftMenuTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuTVC.h; sourceTree = "<group>"; };
 		F2FA4D291A514DAC0023AB45 /* LeftMenuTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuTVC.m; sourceTree = "<group>"; };
 		F2FA4D2A1A514DAC0023AB45 /* LeftMenuTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuTVC.xib; sourceTree = "<group>"; };
-		F2FA4D2E1A514DB70023AB45 /* FirstVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstVC.h; sourceTree = "<group>"; };
-		F2FA4D2F1A514DB70023AB45 /* FirstVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstVC.m; sourceTree = "<group>"; };
-		F2FA4D301A514DB70023AB45 /* FirstVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstVC.xib; sourceTree = "<group>"; };
+		F2FA4D2E1A514DB70023AB45 /* mainFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainFile.h; sourceTree = "<group>"; };
+		F2FA4D2F1A514DB70023AB45 /* mainFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainFile.m; sourceTree = "<group>"; };
+		F2FA4D301A514DB70023AB45 /* mainFile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mainFile.xib; sourceTree = "<group>"; };
 		F2FA4D311A514DB70023AB45 /* SecondVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondVC.h; sourceTree = "<group>"; };
 		F2FA4D321A514DB70023AB45 /* SecondVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondVC.m; sourceTree = "<group>"; };
 		F2FA4D331A514DB70023AB45 /* SecondVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondVC.xib; sourceTree = "<group>"; };
@@ -434,6 +442,7 @@
 		E5AF78F514E0C25C005B6234 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F2604F6F1A66BAD7002D5AA3 /* ViewAlertView */,
 				E5AF78F114E0B725005B6234 /* PAWActivityView.h */,
 				E5AF78F214E0B725005B6234 /* PAWActivityView.m */,
 				81E5F1291997DB0D0079429B /* Cells */,
@@ -482,6 +491,15 @@
 				E5458B6414D77BEA003BE4FF /* PAWSettingsViewController.m */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		F2604F6F1A66BAD7002D5AA3 /* ViewAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				F2604F701A66BAD7002D5AA3 /* CustomIOS7AlertView.h */,
+				F2604F711A66BAD7002D5AA3 /* CustomIOS7AlertView.m */,
+			);
+			path = ViewAlertView;
 			sourceTree = "<group>";
 		};
 		F2ECB5081A5D96170027F423 /* sdk */ = {
@@ -641,11 +659,14 @@
 		F2FA4D2D1A514DB70023AB45 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				F2B6994E1A6FE51F00B4BCEC /* mainF.h */,
+				F2B6994F1A6FE51F00B4BCEC /* mainF.m */,
+				F2B699501A6FE51F00B4BCEC /* mainF.xib */,
 				F24B05A81A52E6ED004CECCF /* MainVC.h */,
 				F24B05A91A52E6ED004CECCF /* MainVC.m */,
-				F2FA4D2E1A514DB70023AB45 /* FirstVC.h */,
-				F2FA4D2F1A514DB70023AB45 /* FirstVC.m */,
-				F2FA4D301A514DB70023AB45 /* FirstVC.xib */,
+				F2FA4D2E1A514DB70023AB45 /* mainFile.h */,
+				F2FA4D2F1A514DB70023AB45 /* mainFile.m */,
+				F2FA4D301A514DB70023AB45 /* mainFile.xib */,
 				F2FA4D311A514DB70023AB45 /* SecondVC.h */,
 				F2FA4D321A514DB70023AB45 /* SecondVC.m */,
 				F2FA4D331A514DB70023AB45 /* SecondVC.xib */,
@@ -683,7 +704,7 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Parse Inc.";
 			};
-			buildConfigurationList = E56E83EC14D72E1100E856AB /* Build configuration list for PBXProject "IWonToHelp" */;
+			buildConfigurationList = E56E83EC14D72E1100E856AB /* Build configuration list for PBXProject "IWontToHelp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -714,8 +735,9 @@
 				E5458B6D14D8B2E3003BE4FF /* PAWWallPostCreateViewController.xib in Resources */,
 				E5C3305114DA024F00089B64 /* PAWLoginViewController.xib in Resources */,
 				E5E3D1F314DA20220074DA18 /* PAWNewUserViewController.xib in Resources */,
+				F2B699521A6FE51F00B4BCEC /* mainF.xib in Resources */,
 				F2FA4D371A514DB70023AB45 /* SecondVC.xib in Resources */,
-				F2FA4D351A514DB70023AB45 /* FirstVC.xib in Resources */,
+				F2FA4D351A514DB70023AB45 /* mainFile.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,7 +750,7 @@
 			files = (
 				F2ECB58A1A5D96170027F423 /* VKBundle.m in Sources */,
 				F2FA4D221A514C8C0023AB45 /* AMSlideMenuLeftTableViewController.m in Sources */,
-				F2FA4D341A514DB70023AB45 /* FirstVC.m in Sources */,
+				F2FA4D341A514DB70023AB45 /* mainFile.m in Sources */,
 				F2FA4D251A514C8C0023AB45 /* AMSlideMenuRightTableViewController.m in Sources */,
 				F2ECB5891A5D96170027F423 /* VKBatchRequest.m in Sources */,
 				F2ECB5731A5D96170027F423 /* VKPhoto.m in Sources */,
@@ -792,8 +814,10 @@
 				F2ECB5991A5D96170027F423 /* VKUploadPhotoBase.m in Sources */,
 				F2ECB5901A5D96170027F423 /* VKImageParameters.m in Sources */,
 				F2ECB56F1A5D96170027F423 /* VKAudio.m in Sources */,
+				F2604F721A66BAD7002D5AA3 /* CustomIOS7AlertView.m in Sources */,
 				F2ECB57D1A5D96170027F423 /* VKShareDialogController.m in Sources */,
 				F2ECB57C1A5D96170027F423 /* OrderedDictionary.m in Sources */,
+				F2B699511A6FE51F00B4BCEC /* mainF.m in Sources */,
 				F2FA4D201A514C8C0023AB45 /* AMSlideMenuContentSegue.m in Sources */,
 				C4FD6130172751E200F61563 /* PAWWallPostsTableViewController.m in Sources */,
 			);
@@ -1069,7 +1093,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E56E83EC14D72E1100E856AB /* Build configuration list for PBXProject "IWonToHelp" */ = {
+		E56E83EC14D72E1100E856AB /* Build configuration list for PBXProject "IWontToHelp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E56E840E14D72E1100E856AB /* Debug */,

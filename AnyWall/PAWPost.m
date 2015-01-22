@@ -10,6 +10,8 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
 
+
+
 @property (nonatomic, strong) PFObject *object;
 @property (nonatomic, strong) PFUser *user;
 @property (nonatomic, assign) MKPinAnnotationColor pinColor;
@@ -23,14 +25,15 @@
 
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate
                           andTitle:(NSString *)title
-                       andSubtitle:(NSString *)subtitle {
+					   andSubtitle:(NSString *)subtitle{
     self = [super init];
     if (self) {
         self.coordinate = coordinate;
         self.title = title;
         self.subtitle = subtitle;
+
     }
-    return self;
+	return self;
 }
 
 - (instancetype)initWithPFObject:(PFObject *)object {
@@ -40,6 +43,7 @@
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
     NSString *title = object[PAWParsePostTextKey];
     NSString *subtitle = object[PAWParsePostUserKey][PAWParsePostNameKey] ?: object[PAWParsePostUserKey][PAWParsePostUsernameKey];
+	NSString *subtitle2 = object[PAWParsePostTextKey];
 
     self = [self initWithCoordinate:coordinate andTitle:title andSubtitle:subtitle];
     if (self) {
@@ -85,6 +89,7 @@
         self.title = self.object[PAWParsePostTextKey];
         self.subtitle = self.object[PAWParsePostUserKey][PAWParsePostNameKey] ?:
         self.object[PAWParsePostUserKey][PAWParsePostUsernameKey];
+		
         self.pinColor = MKPinAnnotationColorGreen;
     }
 }

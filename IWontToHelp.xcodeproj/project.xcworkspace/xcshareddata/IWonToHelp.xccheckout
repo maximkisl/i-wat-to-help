@@ -6,31 +6,35 @@
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>1519ABC7-2630-42B5-969E-5B44EFB1A9D3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>IWonToHelp</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C8F50BCDCFDC63763FD6355FD91D619C6B03C252</key>
-		<string>https://github.com/VKCOM/vk-ios-sdk.git</string>
+		<key>BD9666EA89103AA16711414E4B5C94DE7F79BAE4</key>
+		<string>https://github.com/maximkisl/i-wat-to-help.git</string>
 	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>IWonToHelp.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C8F50BCDCFDC63763FD6355FD91D619C6B03C252</key>
-		<string>vk-ios-sdk/</string>
+		<key>BD9666EA89103AA16711414E4B5C94DE7F79BAE4</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/VKCOM/vk-ios-sdk.git</string>
+	<string>https://github.com/maximkisl/i-wat-to-help.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C8F50BCDCFDC63763FD6355FD91D619C6B03C252</string>
+	<string>BD9666EA89103AA16711414E4B5C94DE7F79BAE4</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C8F50BCDCFDC63763FD6355FD91D619C6B03C252</string>
+			<string>BD9666EA89103AA16711414E4B5C94DE7F79BAE4</string>
 			<key>IDESourceControlWCCName</key>
-			<string>vk-ios-sdk</string>
+			<string>i-wat-to-help</string>
 		</dict>
 	</array>
 </dict>

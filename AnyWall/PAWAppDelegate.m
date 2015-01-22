@@ -8,15 +8,16 @@
 #import "PAWLoginViewController.h"
 #import "PAWSettingsViewController.h"
 #import "PAWWallViewController.h"
+#import "mainF.h"
 
-#import "FirstVC.h"
+#import "mainFile.h"
 
 #import "MainVC.h"
 
 @interface PAWAppDelegate ()
 <PAWLoginViewControllerDelegate,
 PAWWallViewControllerDelegate,
-PAWSettingsViewControllerDelegate,FirstVCDelegate>
+PAWSettingsViewControllerDelegate, mainFileDelegate, mainFDelegate>
 
 @end
 

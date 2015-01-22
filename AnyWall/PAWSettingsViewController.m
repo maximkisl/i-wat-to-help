@@ -7,7 +7,7 @@
 #import "PAWConstants.h"
 #import "PAWConfigManager.h"
 
-#import "FirstVC.h"
+#import "mainFile.h"
 
 typedef NS_ENUM(uint8_t, PAWSettingsTableViewSection)
 {

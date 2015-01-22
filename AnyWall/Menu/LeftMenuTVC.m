@@ -1,9 +1,10 @@
 
 
 #import "LeftMenuTVC.h"
-#import "FirstVC.h"
+#import "mainFile.h"
 #import "SecondVC.h"
 #import "PAWWallViewController.h"
+#import "mainF.h"
 
 @interface LeftMenuTVC ()
 
@@ -60,11 +61,12 @@
             rootVC = [[SecondVC alloc] initWithNibName:@"SecondVC" bundle:nil];
         }
             break;
-//        case 2:
-//        {
-//			rootVC = [[FirstVC alloc] initWithNibName:@"FirstVC" bundle:nil];
-//        }
-//            break;
+        case 1:
+        {
+			mainFile *f = [[mainFile alloc] init];
+			rootVC = f;
+        }
+            break;
 			
         default:
             break;

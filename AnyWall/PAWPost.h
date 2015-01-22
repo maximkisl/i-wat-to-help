@@ -4,7 +4,7 @@
 #import <MapKit/MapKit.h>
 #import <Parse/Parse.h>
 
-@interface PAWPost : NSObject <MKAnnotation>
+@interface PAWPost : NSObject <MKAnnotation, UIAlertViewDelegate>
 
 //@protocol MKAnnotation <NSObject>
 
@@ -27,7 +27,8 @@
 // Designated initializer.
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate
                           andTitle:(NSString *)title
-                       andSubtitle:(NSString *)subtitle;
+					   andSubtitle:(NSString *)subtitle;
+
 - (instancetype)initWithPFObject:(PFObject *)object;
 
 
