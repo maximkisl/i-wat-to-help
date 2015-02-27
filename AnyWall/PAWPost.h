@@ -16,6 +16,23 @@
 // Title and subtitle for use by selection UI.
 @property (nonatomic, copy, readonly) NSString *title;
 @property (nonatomic, copy, readonly) NSString *subtitle;
+
+@property (nonatomic, copy, readonly) NSString *text;
+@property (nonatomic, copy, readonly) NSString *moreinfo;
+
+@property (nonatomic, copy, readonly) NSString *complexity;
+@property (nonatomic, copy, readonly) NSString *rank;
+@property (nonatomic, copy, readonly) NSString *phone;
+@property (nonatomic, copy, readonly) NSDate *time;
+@property (nonatomic, copy, readonly) NSString *locationstring;
+
+
+@property (nonatomic, copy, readonly) NSString *userPointer;
+
+
+
+@property (nonatomic, copy, readonly) UIImage *avatarImage;
+
 // @end
 
 // Other properties:
@@ -27,7 +44,8 @@
 // Designated initializer.
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate
                           andTitle:(NSString *)title
-					   andSubtitle:(NSString *)subtitle;
+					   andSubtitle:(NSString *)subtitle
+						 andAvatar:(UIImage *)avatarImage;
 
 - (instancetype)initWithPFObject:(PFObject *)object;
 

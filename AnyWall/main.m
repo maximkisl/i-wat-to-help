@@ -11,6 +11,10 @@
 
 int main(int argc, char *argv[])
 {
+	[[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObject:@"ru_RU"] forKey:@"AppleLanguages"];
+
+
+	
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([PAWAppDelegate class]));
     }

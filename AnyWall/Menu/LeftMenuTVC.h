@@ -1,6 +1,8 @@
 
-
+#import "mainFile.h"
 #import "AMSlideMenuLeftTableViewController.h"
+
+
 
 @interface LeftMenuTVC : AMSlideMenuLeftTableViewController
 
@@ -10,5 +12,6 @@
 
 #pragma mark - Properties
 @property (strong, nonatomic) NSMutableArray *tableData;
+//@property (nonatomic, weak) id<LeftMenuDelegate> delegate;
 
 @end

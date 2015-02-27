@@ -7,14 +7,14 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "VKSdk.h"
 #import "VKAuthorizeController.h"
-
+#import "MainVC.h"
 #import "PAWActivityView.h"
 #import "PAWNewUserViewController.h"
 
 @interface PAWLoginViewController ()
 <UITextFieldDelegate,
 UIScrollViewDelegate,
-PAWNewUserViewControllerDelegate>
+PAWNewUserViewControllerDelegate, MainVCDelegate>
 
 @property (nonatomic, assign) BOOL activityViewVisible;
 @property (nonatomic, strong) UIView *activityView;
@@ -350,6 +350,9 @@ static NSArray  * SCOPE = nil;
 
 - (void)newUserViewControllerDidSignup:(PAWNewUserViewController *)controller {
     [self.delegate loginViewControllerDidLogin:self];
+}
+- (void)MainVCViewControllerDidSignup:(MainVC *)controller {
+	[self.delegate loginViewControllerDidLogin:self];
 }
 
 #pragma mark -

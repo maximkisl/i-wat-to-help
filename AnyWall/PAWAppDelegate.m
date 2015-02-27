@@ -17,7 +17,7 @@
 @interface PAWAppDelegate ()
 <PAWLoginViewControllerDelegate,
 PAWWallViewControllerDelegate,
-PAWSettingsViewControllerDelegate, mainFileDelegate, mainFDelegate>
+PAWSettingsViewControllerDelegate, mainFileDelegate, mainFDelegate, MainVCDelegate>
 
 @end
 
@@ -27,8 +27,21 @@ PAWSettingsViewControllerDelegate, mainFileDelegate, mainFDelegate>
 #pragma mark UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+	
+ // Register for Push Notitications
+	UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+													UIUserNotificationTypeBadge |
+													UIUserNotificationTypeSound);
+	UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+																			 categories:nil];
+	[application registerUserNotificationSettings:settings];
+	[application registerForRemoteNotifications];
+	
+//	[[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObject:@"ru_RU"] forKey:@"AppleLanguages"];
 
+	
+	
+	// Override point for customization after application launch.
     // ****************************************************************************
     // Parse initialization
     [Parse setApplicationId:@"4oI0cGQvwuBbKpR6VbUIgK0gqYR6VgkiGj0weWfK" clientKey:@"iv1xOroJDMbhtN4aTazk46IkBIva8F2kS4jkH98v"];
@@ -89,12 +102,25 @@ PAWSettingsViewControllerDelegate, mainFileDelegate, mainFDelegate>
 #pragma mark -
 #pragma mark LoginViewController
 
+-(void)mainFileViewControllerDidLogOut:(MainVC *)controller{
+//	[controller dismissViewControllerAnimated:YES completion:nil];
+//	[self presentLoginViewController];
+	[self presentWallViewControllerAnimated:YES];
+
+	NSLog(@"mainFileViewControllerDidLogOut");
+}
+- (void)settingsViewControllerDidLogout:(MainVC *)controller {
+	[controller dismissViewControllerAnimated:YES completion:nil];
+	[self presentLoginViewController];
+}
+
 - (void)presentLoginViewController {
     // Go to the welcome screen and have them log in or create an account.
 	// Перейти на экран приветствия и у них войти или зарегистрироваться .
     PAWLoginViewController *viewController = [[PAWLoginViewController alloc] initWithNibName:nil bundle:nil];
     viewController.delegate = self;
     [self.navigationController setViewControllers:@[ viewController ] animated:NO];
+	
 }
 
 #pragma mark Delegate
@@ -112,7 +138,7 @@ PAWSettingsViewControllerDelegate, mainFileDelegate, mainFDelegate>
 	
 	
 	MainVC *wallViewController = [[MainVC alloc] initWithNibName:nil bundle:nil];
-	//wallViewController.delegate = self;
+	wallViewController.delegate = self;
 	[self.navigationController setViewControllers:@[ wallViewController ] animated:animated];
 }
 
@@ -132,11 +158,48 @@ PAWSettingsViewControllerDelegate, mainFileDelegate, mainFDelegate>
     [self.navigationController presentViewController:settingsViewController animated:YES completion:nil];
 }
 
+//#pragma mark Delegate
+//
+//- (void)settingsViewControllerDidLogout:(PAWSettingsViewController *)controller {
+//    [controller dismissViewControllerAnimated:YES completion:nil];
+//    [self presentLoginViewController];
+//}
+
+
+
+
+//- (void)mainFViewControllerDidLogout:(mainF *)controller {
+//	[controller dismissViewControllerAnimated:YES completion:nil];
+//	[self presentLoginViewController];
+//}
+
+//#pragma mark Delegate
+
+//- (void)wallViewControllerWantsToPresentMainFile:(mainFile *)controller {
+//	controller = [[mainFile alloc] initWithNibName:nil bundle:nil];
+//}
+
+//#pragma mark -
+//#pragma mark mainFileViewController
+//
+//- (void)presentMainFileViewController {
+//	mainF *settingsViewController = [[mainF alloc] initWithNibName:nil bundle:nil];
+//	settingsViewController.delegate = self;
+//	settingsViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+//	[self.navigationController presentViewController:settingsViewController animated:YES completion:nil];
+//}
+
+
 #pragma mark Delegate
 
-- (void)settingsViewControllerDidLogout:(PAWSettingsViewController *)controller {
-    [controller dismissViewControllerAnimated:YES completion:nil];
-    [self presentLoginViewController];
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+	// Store the deviceToken in the current installation and save it to Parse.
+	PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+	[currentInstallation setDeviceTokenFromData:deviceToken];
+	[currentInstallation saveInBackground];
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+	[PFPush handlePush:userInfo];
+}
 @end

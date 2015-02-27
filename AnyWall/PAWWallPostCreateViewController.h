@@ -10,7 +10,7 @@
 
 @end
 
-@interface PAWWallPostCreateViewController : UIViewController
+@interface PAWWallPostCreateViewController : UIViewController<CLLocationManagerDelegate>
 
 @property (nonatomic, weak) id<PAWWallPostCreateViewControllerDataSource> dataSource;
 
@@ -20,5 +20,6 @@
 
 - (IBAction)cancelPost:(id)sender;
 - (IBAction)postPost:(id)sender;
+- (IBAction)postPosT:(id)sender;
 
 @end

@@ -30,8 +30,12 @@
 #pragma mark UIViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-
+    [super viewDidLoad];	
+	
+	
+	
+	
+	
 	UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, 144.0f, 26.0f)];
     self.characterCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 0.0f, 144.0f, 21.0f)];
     self.characterCountLabel.backgroundColor = [UIColor clearColor];
@@ -130,6 +134,73 @@
     }];
 
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)postPosT:(id)sender {
+	
+
+	
+	
+	// Resign first responder to dismiss the keyboard and capture in-flight autocorrect suggestions
+	// Отставку первый ответчик уволить клавиатуры и захват в полете автозамены предложения |
+	[self.textView resignFirstResponder];
+	
+	// Capture current text field contents:
+	// Захват текущего содержимого текстового поля :
+	[self updateCharacterCountLabel];
+	BOOL isAcceptableAfterAutocorrect = [self checkCharacterCount];
+	
+	if (!isAcceptableAfterAutocorrect) {
+		[self.textView becomeFirstResponder];
+		return;
+	}
+	
+	// Data prep:
+	// Подготовительные данных:
+	CLLocation *currentLocation = [self.dataSource currentLocationForWallPostCrateViewController:self];
+	CLLocationCoordinate2D currentCoordinate = currentLocation.coordinate;
+	PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentCoordinate.latitude
+													  longitude:currentCoordinate.longitude];
+	PFUser *user = [PFUser currentUser];
+	
+	// Stitch together a postObject and send this async to Parse
+	// Стежка вместе postObject и отправьте асинхронный для разбора
+	PFObject *postObject = [PFObject objectWithClassName:PAWParsePostsClassName];
+	postObject[PAWParsePostTextKey] = self.textView.text;
+	postObject[PAWParsePostUserKey] = user;
+	postObject[PAWParsePostLocationKey] = currentPoint;
+	
+	// Use PFACL to restrict future modifications to this object.
+	// Использование PFACL ограничить будущие изменения в данного объекта.
+	PFACL *readOnlyACL = [PFACL ACL];
+	[readOnlyACL setPublicReadAccess:YES];
+	[readOnlyACL setPublicWriteAccess:NO];
+	postObject.ACL = readOnlyACL;
+	
+	[postObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+		if (error) {
+			NSLog(@"Couldn't save!");
+			NSLog(@"%@", error);
+			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[error userInfo][@"error"]
+																message:nil
+															   delegate:self
+													  cancelButtonTitle:nil
+													  otherButtonTitles:@"Ok", nil];
+			[alertView show];
+			return;
+		}
+		if (succeeded) {
+			NSLog(@"Successfully saved!");
+			NSLog(@"%@", postObject);
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[[NSNotificationCenter defaultCenter] postNotificationName:PAWPostCreatedNotification object:nil];
+			});
+		} else {
+			NSLog(@"Failed to save.");
+		}
+	}];
+	
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -

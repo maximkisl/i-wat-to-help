@@ -11,6 +11,7 @@
 
 #import "CustomIOS7AlertView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PAWFriendsProfile.h"
 
 const static CGFloat kCustomIOS7AlertViewDefaultButtonHeight       = 50;
 const static CGFloat kCustomIOS7AlertViewDefaultButtonSpacerHeight = 1;
@@ -119,6 +120,13 @@ CGFloat buttonSpacerHeight = 0;
 }
 
 // Button has been touched
+
+//-(IBAction) imageTestProfil:(id)sender{
+//	PAWFriendsProfile *viewController = [[PAWFriendsProfile alloc] initWithPFObject:self.pfobject];
+//	[self.navigationController pushViewController:viewController animated:YES];
+//	
+//}
+
 - (IBAction)customIOS7dialogButtonTouchUpInside:(id)sender
 {
     if (delegate != NULL) {
@@ -241,12 +249,36 @@ CGFloat buttonSpacerHeight = 0;
 	NSString *sHelp = @"Help";
 	NSString *sHelpIndex = [buttonTitles objectAtIndex:3];
 	
+	NSString *sMessage = @"message";
+	NSString *sMessageIndex = [buttonTitles objectAtIndex:4];
+	
 	BOOL checkForClose = [sClose isEqualToString: sCloseIndex];
 	BOOL checkFor2Close = [sClose2 isEqualToString: sClose2Index];
 	BOOL checkForInfo = [sInfo isEqualToString: sInfoIndex];
 	BOOL checkForHelp = [sHelp isEqualToString: sHelpIndex];
+	BOOL checkForMessage = [sMessage isEqualToString: sMessageIndex];
 
 	
+	
+	if (checkForMessage) {
+		
+		UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//		[messageButton setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
+//		messageButton.frame = CGRectMake(0, 190, 40, 40);
+		
+		[closeButton setFrame:CGRectMake(48, 90, 30, 30)];
+		[closeButton addTarget:self action:@selector(customIOS7dialogButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+		[closeButton setTag:4];
+		
+		[closeButton setBackgroundImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
+		[closeButton setTitleColor:[UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f] forState:UIControlStateNormal];
+		[closeButton setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
+		[closeButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+		[closeButton.layer setCornerRadius:kCustomIOS7AlertViewCornerRadius];
+		
+		[container addSubview:closeButton];
+		
+	}
 	if (checkForClose) {
 		
 				    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];

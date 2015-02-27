@@ -77,6 +77,7 @@ static NSMutableArray *allInstances;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
     if (!allInstances)
     {
         allInstances = [NSMutableArray array];

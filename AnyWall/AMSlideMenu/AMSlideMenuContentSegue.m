@@ -42,7 +42,7 @@
     AMSlideMenuMainViewController *mainVC = (AMSlideMenuMainViewController *)sourceVC.parentViewController;    
     
     UINavigationItem *navItem = mainVC.currentActiveNVC.navigationBar.topItem;
-    
+
     if (!navItem)
         navItem = destinationNVC.navigationBar.topItem;
     
@@ -66,6 +66,7 @@
         [leftBtn addTarget:mainVC action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
         
         navItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+		
     }
     
     if (mainVC.rightMenu)

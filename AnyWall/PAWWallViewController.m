@@ -6,11 +6,13 @@
 #import "PAWPost.h"
 #import "PAWWallPostCreateViewController.h"
 #import "PAWWallPostsTableViewController.h"
-
-//#import "FirstVC.h"
-
-//#import "LeftMenuTVC.h"
-
+#import "mainF.h"
+#include "IWTHProfile.h"
+#import <UIKit/UIKit.h>
+#import "PAWFriendsProfile.h"
+//#import "IWTHPost.h"
+//#import "IWTHPost.h"
+#import "IWTHNewPostViewController.h"
 
 @interface PAWWallViewController ()
 <PAWWallPostsTableViewControllerDataSource,
@@ -26,7 +28,18 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 
 @property (nonatomic, strong) NSString *title2;
 @property (nonatomic, strong) NSString *subtitle2;
+@property (nonatomic, strong) NSString *subtitle3;
+@property (nonatomic, strong) UIImage *avatarString2;
+@property (nonatomic, strong) UIImageView *imageBackround;
 
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSString *moreinfo;
+@property (nonatomic, strong) NSString *compexity;
+@property (nonatomic, strong) NSString *rank;
+@property (nonatomic, strong) NSString *phone;
+@property (nonatomic, strong) NSDate *time;
+@property (nonatomic, strong) NSString *locationstring;
+@property (nonatomic, strong) PFObject *pfobject;
 
 @property (nonatomic, strong) PAWWallPostsTableViewController *wallPostsTableViewController;
 
@@ -35,12 +48,14 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 @end
 
 @implementation PAWWallViewController
+IWTHProfile *profile;
 
 #pragma mark -
 #pragma mark Init
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+
 	if (self) {
         self.title = @"I wont to help";
 
@@ -73,6 +88,10 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+//	self.navigationController.navigationBar.alpha = 0.5;
+
+//	self.tabBar.alpha = 0.5;
+
     // Do any additional setup after loading the view from its nib.
 	[self loadWallPostsTableViewController];
 
@@ -156,9 +175,16 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 #pragma mark WallPostCreatViewController
 
 - (void)presentWallPostCreateViewController {
-    PAWWallPostCreateViewController *viewController = [[PAWWallPostCreateViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.dataSource = self;
-    [self.navigationController presentViewController:viewController animated:YES completion:nil];
+//    PAWWallPostCreateViewController *viewController = [[PAWWallPostCreateViewController alloc] initWithNibName:nil bundle:nil];
+//    viewController.dataSource = self;
+//    [self.navigationController presentViewController:viewController animated:YES completion:nil];
+//	IWTHPost *post = [IWTHPost alloc];
+	
+	IWTHNewPostViewController *post = [[IWTHNewPostViewController alloc] initWithNibName:@"IWTHNewPostViewController" bundle:nil];
+
+	
+	//viewController.delegate = self;
+	[self.navigationController pushViewController:post animated:YES];
 }
 
 #pragma mark DataSource
@@ -167,6 +193,9 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
     return self.currentLocation;
 }
 
+//- (CLLocation *)currentLocationForWallPostCrateIWTHPost:(IWTHPost *)controller {
+//	return self.currentLocation;
+//}
 #pragma mark -
 #pragma mark NSNotificationCenter notification handlers
 
@@ -319,7 +348,7 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
     NSLog(@"%s", __PRETTY_FUNCTION__);
-
+	currentLocation = newLocation;
     self.currentLocation = newLocation;
 }
 
@@ -382,19 +411,19 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 			// Еслисуществующие Вид Контакт не был доступен , создайте ее.
             pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                                       reuseIdentifier:pinIdentifier];
-
+//			pinView.image = [UIImage imageNamed:@"pin.png"];
 
 		} else {
             pinView.annotation = annotation;
-
         }
 		//        pinView.pinColor = [(PAWPost *)annotation pinColor];
 		//  pinView.animatesDrop = [((PAWPost *)annotation) animatesDrop];
-        pinView.canShowCallout = NO;
+//		pinView.image = [UIImage imageNamed:@"pin.png"];
+		pinView.pinColor = MKPinAnnotationColorGreen;
+//		pinView.image = NO;
+//		pinView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pin.png"]];
+//        pinView.canShowCallout = NO;
 		//pinView.draggable = YES;
-		pinView.image = [UIImage imageNamed:@"pin.png"];
-
-		
         return pinView;
     }
 
@@ -402,11 +431,67 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 	
 }
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+	UIImageView *imageTestProfil = [[UIImageView alloc] initWithFrame:CGRectMake(60, 170, 30, 30)];
+
+	
+	//	imageTestProfil.backgroundColor = [UIColor darkGrayColor];
+	
+	CALayer * ourLayer = [imageTestProfil layer]; // Будем округлять UIImageView
+	ourLayer.cornerRadius = 15.0f;           // Polovina korotkoi storoni, Задаем радиус для округления.
+	ourLayer.masksToBounds = YES;           // Чтобы за овальной границей в углах ничего не рисовалось
+	ourLayer.borderWidth = 0.0f;
+	
+	
 		id<MKAnnotation> annotation = [view annotation];
 	if ([annotation isKindOfClass:[PAWPost class]]) {
 		PAWPost *post = [view annotation];
 		self.title2 = post.title;
 		self.subtitle2 = post.subtitle;
+//		self.subtitle3 = post.rank;
+		PFFile *avatarString = post.object[@"smalluseravatar"];
+		[avatarString getDataInBackgroundWithBlock:^(NSData *data, NSError *error){
+			if(!error){
+				NSLog(@"getTmage");
+				[imageTestProfil setImage:[UIImage imageWithData:data]];
+				self.avatarString2 =[UIImage imageWithData:data];
+//				[imageTestProfil.imageView setImage: self.avatarString2];
+//				[imageTestProfil setImage:self.avatarString2 forState:UIControlStateNormal];
+//				UIImage *listImage = [UIImage imageNamed:@"LaunchImage"];
+//				
+//				CGSize size = CGSizeMake(30, 30);
+//				UIGraphicsBeginImageContext(size);
+//				[listImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+//				UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
+//				UIGraphicsEndImageContext();
+//				
+//				[imageTestProfil setImage:destImage forState:UIControlStateNormal];
+			} if (error)
+			{
+				NSLog(@"Failed to save Parse assignment with error: %@", error.localizedDescription);
+			}
+		}];
+		
+		
+//		NSData *imageData = UIImagePNGRepresentation(post.avatarImage);
+//		self.avatarString2 = [[UIImage alloc] initWithData:imageData];
+		
+		self.text = post.text;
+		self.moreinfo = post.moreinfo;
+		self.compexity = post.complexity;
+		self.phone = post.phone;
+		self.time= post.time;
+		self.rank = post.rank;
+		self.locationstring = post.locationstring;
+		self.pfobject =  post.object;
+		
+		NSString* userPointer = post.userPointer;
+		NSLog(@"USER NAME :%@", userPointer);
+//		[post.avatarImage getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+//			if (!error) {
+//				UIImage *image = [UIImage imageWithData:imageData];
+//				NSLog(@"FAck yea");
+//			}
+//		}];
 		[self.wallPostsTableViewController highlightCellForPost:post];
 	}  else  if ([annotation isKindOfClass:[MKUserLocation class]]) {
 		// Center the map on the user's current location:
@@ -425,7 +510,7 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 	// Add some custom content to the alert view
 	//[alertView setContainerView:[self createDemoView:alertView]];
 	// Modify the parameters
-	[alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cansel", @"0", @"Info",@"0", nil]];
+	[alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cansel", @"0", @"Info",@"0", @"message", nil]];
 	[alertView setDelegate:self];
 	alertView.hidden = nil;
 	// You may use a Block, rather than a delegate.
@@ -433,13 +518,20 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 		NSLog(@"Block: Button at position %d is clicked on alertView %d.", buttonIndex, (int)[alertView tag]);
 		
 	}];
-	UIImageView *imageBackround = [[UIImageView alloc] initWithFrame:CGRectMake(50, 165, 220, 150)];
-	[imageBackround setImage:[UIImage imageNamed:@"postMenuBackground.png"]];
+	self.imageBackround = [[UIImageView alloc] initWithFrame:CGRectMake(50, 165, 220, 150)];
+	[self.imageBackround setImage:[UIImage imageNamed:@"postMenuBackground.png"]];
+	
+	
+//		UIButton *messageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//		[messageButton addTarget:self
+//				   action:@selector(imageTestProfil:)
+//				  forControlEvents:UIControlEventTouchUpInside];
+//	[messageButton setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
+//		messageButton.frame = CGRectMake(0, 190, 40, 40);
 	
 	UILabel *label = [[UILabel alloc] init];
 	label.frame = CGRectMake(100, 165, 150, 50);
-	//label.text = @"Донести тяжелые багажные сумки";
-	
+	label.text = self.text;
 	
 	label.text = self.title2;
 	label.numberOfLines = 2;
@@ -447,32 +539,62 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 	UILabel *label4 = [[UILabel alloc] init];
 	label4.frame = CGRectMake(100, 195, 150, 70);
 	[label4 setFont:[UIFont systemFontOfSize:14]];
-//	label4.text = @"ул.Бэсхерст, 44б";
-	label4.text = self.subtitle2;
+	label4.text = self.locationstring;
+//	label4.text = self.subtitle2;
 
 	UILabel *label5 = [[UILabel alloc] init];
 	label5.frame = CGRectMake(100, 225, 150, 70);
 	[label5 setFont:[UIFont systemFontOfSize:14]];
-	label5.text = @"Сейчас";
+	
+//	NSDateFormatter *dateStringParser = [[NSDateFormatter alloc] init];
+//	[dateStringParser setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.Z"];
+	
+//	NSDate *date = [dateStringParser dateFromString:self.time];
+	
+	NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+	[formatter2 setDateFormat:@"dd MMMM - HH:mm "];
+	[formatter2 setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
+	
+	label5.text = [formatter2 stringFromDate:self.time];
+
+//	label5.text = self.time;
+//	label5.text =  self.subtitle3;
 	
 	
 	
-	UIImageView *imageTestProfil = [[UIImageView alloc] initWithFrame:CGRectMake(60, 170, 30, 30)];
-	[imageTestProfil setImage:[UIImage imageNamed:@"testImage"]];
-	imageTestProfil.backgroundColor = [UIColor darkGrayColor];
 	
-	CALayer * ourLayer = [imageTestProfil layer]; // Будем округлять UIImageView
-	ourLayer.cornerRadius = 15.0f;           // Polovina korotkoi storoni, Задаем радиус для округления.
-	ourLayer.masksToBounds = YES;           // Чтобы за овальной границей в углах ничего не рисовалось
-	ourLayer.borderWidth = 0.0f;
+//	PFImageView *profilePictureImageView = [[PFImageView alloc] initWithFrame:CGRectMake( 60, 170, 30, 30)];
+//	[profilePictureImageView setImage:self.avatarString2];
+//	CALayer * ourLayer2 = [profilePictureImageView layer]; // Будем округлять UIImageView
+//	ourLayer2.cornerRadius = 15.0f;           // Polovina korotkoi storoni, Задаем радиус для округления.
+//	ourLayer2.masksToBounds = YES;           // Чтобы за овальной границей в углах ничего не рисовалось
+//	ourLayer2.borderWidth = 0.0f;
+	
+//	NSArray * arIm= [[NSArray alloc]initWithArray:self.avatarString2.images];
+	
+//	NSData *resumeData = [self.avatarString2 getData];
+//	UIImage *image = [[UIImage alloc] initWithData: [self.avatarString2 getData]];
+//	PFFile *userImageFile = self.pfobject[@"smalluseravatar"];
+
+//	[self.avatarString2 getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+//		if (!error) {
+//			UIImage *image = [UIImage imageWithData:imageData];
+//			//
+//		}
+//	}];
+//	[imageTestProfil setImage:self.avatarString2];
+	
+
 
 	// And launch the dialog
-	[alertView addSubview:imageBackround];
+	[alertView addSubview:self.imageBackround];
 	[alertView addSubview:label];
 	[alertView addSubview:label4];
 	[alertView addSubview:label5];
 
 	[alertView addSubview:imageTestProfil];
+//	[alertView addSubview:profilePictureImageView];
+//	[alertView addSubview:messageButton];
 
 	[alertView show];
 	//_______________________________________
@@ -480,11 +602,23 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 	
 
 }
-
+-(void) imageTestProfil:(UIButton*)sender{
+	PAWFriendsProfile *viewController = [[PAWFriendsProfile alloc] initWithPFObject:self.pfobject];
+	[self.navigationController pushViewController:viewController animated:YES];
+	
+}
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
 {
 	if (buttonIndex == 0) {
 		[alertView close];
+	}
+	if (buttonIndex == 4) {
+		[alertView close];
+		
+		PAWFriendsProfile *viewController = [[PAWFriendsProfile alloc] initWithPFObject:self.pfobject];
+		[self.navigationController pushViewController:viewController animated:YES];
+
+		
 	}
 	if(buttonIndex == 1){
 		[alertView close];
@@ -493,7 +627,7 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 		// Add some custom content to the alert view
 		//[alertView2 setContainerView:[self createMoreInfo]];
 		// Modify the parameters
-		[alertView2 setButtonTitles:[NSMutableArray arrayWithObjects:@"0", @"Cansel2", @"0",@"Help",nil]];
+		[alertView2 setButtonTitles:[NSMutableArray arrayWithObjects:@"0", @"Cansel2", @"0",@"Help",@"0",nil]];
 		[alertView2 setDelegate:self];
 
 		// You may use a Block, rather than a delegate.
@@ -508,35 +642,54 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 		UILabel *label4 = [[UILabel alloc] init];
 		label4.frame = CGRectMake(100, 210, 150, 70);
 		[label4 setFont:[UIFont systemFontOfSize:14]];
-		label4.text = @"ул.Бэсхерст, 44б";
+		label4.text = self.locationstring;
 		
 		UILabel *label5 = [[UILabel alloc] init];
 		label5.frame = CGRectMake(100, 250, 150, 70);
 		[label5 setFont:[UIFont systemFontOfSize:14]];
-		label5.text = @"Сейчас";
+		
+		NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+		[formatter2 setDateFormat:@"dd MMMM - HH:mm "];
+		[formatter2 setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
+		
+		label5.text = [formatter2 stringFromDate:self.time];
+//		label5.text = (NSString*)self.time;
 		
 		UILabel *label6 = [[UILabel alloc] init];
-		label6.frame = CGRectMake(100, 290, 150, 70);
+		label6.frame = CGRectMake(170, 290, 150, 70);
 		[label6 setFont:[UIFont systemFontOfSize:14]];
-		label6.text = @"Рейтинг: +5";
+		label6.text = self.rank;
+		UILabel *label66 = [[UILabel alloc] init];
+		label66.frame = CGRectMake(100, 290, 150, 70);
+		[label66 setFont:[UIFont systemFontOfSize:14]];
+		label66.text = @"Рейтинг:+";
+		
 		UILabel *label7 = [[UILabel alloc] init];
-		label7.frame = CGRectMake(100, 330, 150, 70);
+		label7.frame = CGRectMake(118, 330, 150, 70);
 		[label7 setFont:[UIFont systemFontOfSize:14]];
-		label7.text = @"8(987) 496-39-08";
+		label7.text = self.phone;
+		UILabel *label77 = [[UILabel alloc] init];
+		label77.frame = CGRectMake(100, 330, 150, 70);
+		[label77 setFont:[UIFont systemFontOfSize:14]];
+		label77.text = @"80";
 	
 		UILabel *label2 = [[UILabel alloc] init];
 		label2.frame = CGRectMake(100, 170, 150, 70);
 		[label2 setFont:[UIFont systemFontOfSize:14]];
-		label2.text = @"Gastov Igor and gastov igor and";
+		label2.text = self.text;
 		
 		UILabel *label3 = [[UILabel alloc] init];
 		label3.numberOfLines = 3;
 		label3.frame = CGRectMake(100, 105, 150, 100);
-		label3.text = @"Донести тяжелые багажные сумки (расширенное описание)";
+		label3.text = self.moreinfo;
 
 
 		UIImageView *imageTestProfil2 = [[UIImageView alloc] initWithFrame:CGRectMake(60, 193, 30, 30)];
-		[imageTestProfil2 setImage:[UIImage imageNamed:@"testImage"]];
+		
+//		NSData *resumeData = [self.avatarString2 getData];
+//		[imageTestProfil2 setImage:[UIImage imageWithData:resumeData]];
+		
+		[imageTestProfil2 setImage:self.avatarString2];
 		imageTestProfil2.backgroundColor = [UIColor darkGrayColor];
 		
 		CALayer * ourLayer = [imageTestProfil2 layer]; // Будем округлять UIImageView
@@ -551,6 +704,8 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 		[alertView2 addSubview:label4];
 		[alertView2 addSubview:label5];
 		[alertView2 addSubview:label6];
+		[alertView2 addSubview:label77];
+		[alertView2 addSubview:label66];
 		[alertView2 addSubview:label7];
 
 		[alertView2 addSubview:imageTestProfil2];
@@ -572,6 +727,7 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
     self.mapPannedSinceLocationUpdate = YES;
 }
+
 
 #pragma mark -
 #pragma mark Fetch map pins
@@ -602,7 +758,21 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
         if (error) {
             NSLog(@"error in geo query!"); // todo why is this ever happening? // TODO почему это когда-нибудь случилось?
         } else {
-            // We need to make new post objects from objects,
+			
+//			NSArray *imageFilesArray = [[NSArray alloc] initWithArray:objects];
+
+//				PFFile *imageFile = [objects objectForKey:@"avatar"];
+//			
+//				[imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error){
+//					if(!error){
+//						self.imageBackround.image = [UIImage imageWithData:data];
+//					}
+//				}];
+			
+			
+			
+			
+			// We need to make new post objects from objects,
             // and update allPosts and the map to reflect this new array.
             // But we don't want to remove all annotations from the mapview blindly,
             // so let's do some work to figure out what's new and what needs removing.
@@ -619,7 +789,8 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
             NSMutableArray *allNewPosts = [[NSMutableArray alloc] initWithCapacity:[objects count]];
             for (PFObject *object in objects) {
                 PAWPost *newPost = [[PAWPost alloc] initWithPFObject:object];
-                [allNewPosts addObject:newPost];
+				
+				[allNewPosts addObject:newPost];
                 if (![_allPosts containsObject:newPost]) {
                     [newPosts addObject:newPost];
                 }
@@ -683,10 +854,10 @@ PAWWallPostCreateViewControllerDataSource,mainFileDelegate>
         CLLocationDistance distanceFromCurrent = [currentLocation distanceFromLocation:objectLocation];
         if (distanceFromCurrent > nearbyDistance) { // Outside search radius   // Внешний радиус поиск
             [post setTitleAndSubtitleOutsideDistance:YES];
-            [(MKPinAnnotationView *)[self.mapView viewForAnnotation:post] setPinColor:post.pinColor];
+//            [(MKPinAnnotationView *)[self.mapView viewForAnnotation:post] setPinColor:post.pinColor];
         } else {
             [post setTitleAndSubtitleOutsideDistance:NO]; // Inside search radius //Внутренний радиус поиска
-            [(MKPinAnnotationView *)[self.mapView viewForAnnotation:post] setPinColor:post.pinColor];
+//            [(MKPinAnnotationView *)[self.mapView viewForAnnotation:post] setPinColor:post.pinColor];
         }
     }
 }

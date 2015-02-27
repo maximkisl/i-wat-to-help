@@ -1,6 +1,8 @@
 #import "MainVC.h"
 #import "LeftMenuTVC.h"
-
+#import "PAWConstants.h"
+#import "PAWLoginViewController.h"
+#import "PAWAppDelegate.h"
 @interface MainVC ()
 
 @end
@@ -9,24 +11,42 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logOut:) name:kHMLogOut object:nil];
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
     return self;
 }
-
+-(void)logOut:(NSNotification*) notification{
+	NSLog(@"LogOut!!!!");
+	[PFUser logOut];
+	
+	//[self dismissViewControllerAnimated:YES completion:nil];
+	[self.delegate settingsViewControllerDidLogout:self];
+	
+	//	[self dismissViewControllerAnimated:YES completion:nil];
+//	[self.delegate MainVCViewControllerDidSignup:self];
+	
+	
+	//[self.navigationController popToRootViewControllerAnimated:YES];
+//		PAWLoginViewController *viewController = [[PAWLoginViewController alloc] initWithNibName:nil bundle:nil];
+//		viewController.delegate = self;
+//		[self.navigationController setViewControllers:@[ viewController ] animated:NO];
+}
 - (void)viewDidLoad
 {
+
    /*******************************
     *     Initializing menus
     *******************************/
     self.leftMenu = [[LeftMenuTVC alloc] initWithNibName:@"LeftMenuTVC" bundle:nil];
- 
+//	self.navigationController.navigationBar.alpha = 0.5;
+//	self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+
    /*******************************
     *     End Initializing menus
     *******************************/
-
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -61,5 +81,8 @@
 //{
 //    return 0.5f;
 //}
+-(void)dealloc{
 
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end

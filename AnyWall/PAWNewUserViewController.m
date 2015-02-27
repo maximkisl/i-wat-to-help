@@ -1,9 +1,8 @@
 
 
 #import "PAWNewUserViewController.h"
-
+#import "PAWConstants.h"
 #import <Parse/Parse.h>
-
 #import "PAWActivityView.h"
 
 @interface PAWNewUserViewController () <UITextFieldDelegate, UIScrollViewDelegate>
@@ -15,6 +14,7 @@
 
 @property (nonatomic, assign) CGFloat iconImageViewOriginalY;
 @property (nonatomic, assign) CGFloat iconLogoOffsetY;
+@property (nonatomic, assign) UIImage* avatarImage;
 
 @end
 
@@ -29,6 +29,7 @@
         // Disable automatic adjustment, as we want to occupy all screen real estate
 		// Отключите автоматическую настройку , как мы хотим , чтобы занять весь экран недвижимость
 		self.automaticallyAdjustsScrollViewInsets = NO;
+
     }
     return self;
 }
@@ -45,6 +46,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	[self.avatarImageView setImage:[UIImage imageNamed:@"testImage"]];
+	_avatarImage =[UIImage imageNamed:@"testImage"];
+	CALayer * ourLayer = [self.avatarImageView layer]; // Будем округлять UIImageView
+	ourLayer.cornerRadius = 50.0f;           // Polovina korotkoi storoni, Задаем радиус для округления.
+	ourLayer.masksToBounds = YES;           // Чтобы за овальной границей в углах ничего не рисовалось
+	ourLayer.borderWidth = 0.0f;            // Границу рисовать не будем. Если нужна - указываем толщину
+	
+
+	_scrollView.scrollEnabled = YES;
+	_scrollView.contentSize = CGSizeMake(320, 1400);
     // Do any additional setup after loading the view from its nib.
 	// У любой дополнительной настройки после загрузки видом из своего пера .
 
@@ -52,10 +63,11 @@
 	// Для увольнения клавиатуры
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                            action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:tapGestureRecognizer];
+	
+	
+	[self.view addGestureRecognizer:tapGestureRecognizer];
     tapGestureRecognizer.cancelsTouchesInView = NO;
     [self registerForKeyboardNotifications];
-
     // Save original y position and offsets for floating views
 	// Сохранить оригинальный Позиция Y и смещения с плавающей Просмотры
     self.iconImageViewOriginalY = self.iconImageView.frame.origin.y;
@@ -84,16 +96,28 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == self.usernameField) {
-        [self.passwordField becomeFirstResponder];
-    }
+	if (textField == self.emailFiled) {
+		[self.lastnameField becomeFirstResponder];
+	}
+	if (textField == self.lastnameField) {
+		[self.phoneFiled becomeFirstResponder];
+	}
+	if (textField == self.phoneFiled) {
+		[self.passwordField becomeFirstResponder];
+	}
     if (textField == self.passwordField) {
         [self.passwordAgainField becomeFirstResponder];
     }
     if (textField == self.passwordAgainField) {
-        [self.passwordAgainField resignFirstResponder];
-        [self processFieldEntries];
+        [self.countryField becomeFirstResponder];
     }
+	if (textField == self.countryField) {
+		[self.cityField becomeFirstResponder];
+	}
+	if (textField == self.cityField) {
+		[self.passwordAgainField resignFirstResponder];
+		[self processFieldEntries];
+	}
 
     return YES;
 }
@@ -122,20 +146,28 @@
 	//Сравните пароль и passwordAgain для равенства
 	//Бросьте диалог, который говорит им, что они сделали неправильно , если они сделали это неправильно.
 
-    NSString *username = self.usernameField.text;
+    NSString *login = self.emailFiled.text;
+	NSString *username = self.usernameField.text;
+	NSString *lastname = self.lastnameField.text;
+	NSString *phone = self.phoneFiled.text;
     NSString *password = self.passwordField.text;
     NSString *passwordAgain = self.passwordAgainField.text;
+//    NSString *email = ;
+	NSString *country = self.countryField.text;
+	NSString *city = self.cityField.text;
+	NSString *carma = @"0";
+	NSString *rank = @"Новичок";
     NSString *errorText = @"Please ";
     NSString *usernameBlankText = @"enter a username";
     NSString *passwordBlankText = @"enter a password";
     NSString *joinText = @", and ";
     NSString *passwordMismatchText = @"enter the same password twice";
-
+	NSString *agreementswitchBlankText = @"Вы не согласились с правилами и условиями!";
     BOOL textError = NO;
 
     // Messaging nil will return 0, so these checks implicitly check for nil text.
 	// Сообщений ноль вернет 0 , так что эти проверки неявно проверить нулевой текста.
-    if (username.length == 0 || password.length == 0 || passwordAgain.length == 0) {
+    if (login.length == 0 || lastname.length == 0 || password.length == 0 || passwordAgain.length == 0 || phone.length == 0 ) {
         textError = YES;
 
         // Set up the keyboard for the first field missing input:
@@ -146,16 +178,21 @@
         if (password.length == 0) {
             [self.passwordField becomeFirstResponder];
         }
-        if (username.length == 0) {
+        if (login.length == 0) {
             [self.usernameField becomeFirstResponder];
         }
-
-        if (username.length == 0) {
+		if (lastname.length == 0) {
+			[self.lastnameField becomeFirstResponder];
+		}
+		if (phone.length == 0) {
+			[self.phoneFiled becomeFirstResponder];
+		}
+		
+        if (login.length == 0) {
             errorText = [errorText stringByAppendingString:usernameBlankText];
         }
-
-        if (password.length == 0 || passwordAgain.length == 0) {
-            if (username.length == 0) { // We need some joining text in the error: // Нам нужна присоединения текст ошибки :
+		        if (password.length == 0 || passwordAgain.length == 0) {
+            if (login.length == 0) { // We need some joining text in the error: // Нам нужна присоединения текст ошибки :
                 errorText = [errorText stringByAppendingString:joinText];
             }
             errorText = [errorText stringByAppendingString:passwordBlankText];
@@ -169,6 +206,11 @@
         errorText = [errorText stringByAppendingString:passwordMismatchText];
         [self.passwordField becomeFirstResponder];
     }
+	if([_agreementswitch isOn] == NO){
+		textError = YES;
+		errorText = [errorText stringByAppendingString:agreementswitchBlankText];
+		NSLog(@"switch");
+	}
 
     if (textError) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:errorText message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
@@ -178,7 +220,7 @@
 
     // Everything looks good; try to log in.
 	// Все выглядит хорошо ; попытаться войти .
-    PAWActivityView *activityView = [[PAWActivityView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
+    PAWActivityView *activityView = [[PAWActivityView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320, 1200)];
     UILabel *label = activityView.label;
     label.text = @"Signing You Up";
     label.font = [UIFont boldSystemFontOfSize:20.f];
@@ -195,8 +237,45 @@
 	// В настоящее время, сделать это , как встроенные.
 
     PFUser *user = [PFUser user];
-    user.username = username;
+    user.username = login;
+	user[PAWParsePostFirstNameKey] = username;
+	user[PAWParsePostLastNameKey] = lastname;
+	user[PAWParsePostPhoneKey] = phone;
     user.password = password;
+	user[PAWParsePostCountryKey] = country;
+	user[PAWParsePostCityKey] = city;
+	user[PAWParsePostRankKey] = rank;
+	user[PAWParsePostCarmaKey] = carma;
+	
+//	NSData *imageData = UIImagePNGRepresentation(_avatarImage);
+//
+//	
+//	UIImage *myImage = [[UIImage alloc] initWithData:imageData];
+////	[myImage setImage:[UIImage imageNamed:_avatarImage]];
+//	
+//	CGRect cropRect = CGRectMake(0.0, 0.0, 50.0, 50.0);
+//	CGImageRef croppedImage = CGImageCreateWithImageInRect([myImage CGImage], cropRect);
+//	
+//	UIImage *myCroppedImage = [UIImage imageWithCGImage:croppedImage];
+//	
+//	CGImageRelease(croppedImage);
+	
+	CGSize size = CGSizeMake(100, 100);
+	
+	UIGraphicsBeginImageContext(size);
+	[_avatarImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+	UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	NSData *imageData2 = UIImagePNGRepresentation(destImage);
+	user[@"smallavatar"] = [PFFile fileWithData:imageData2];
+
+	
+	NSData *imageData = UIImagePNGRepresentation(_avatarImage);
+	user[PAWParsePostAvatarKey] = [PFFile fileWithData:imageData];
+	
+	
+	
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[error userInfo][@"error"]
@@ -222,6 +301,15 @@
         [self.delegate newUserViewControllerDidSignup:self];
     }];
 }
+
+//- (UIImage *)imageWithImage:(UIImage *)image convertToSize:(CGSize)size {
+//	UIGraphicsBeginImageContext(size);
+//	[image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+//	UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
+//	UIGraphicsEndImageContext();
+//	return destImage;
+//}
+
 
 #pragma mark -
 #pragma mark Keyboard
@@ -250,8 +338,8 @@
     CGFloat scrollViewOffsetY = (keyboardFrame.size.height -
                                  (CGRectGetHeight(self.view.bounds) -
                                   CGRectGetMaxY(self.createAccountButton.frame)));
-    // Check if scrolling needed
-	// Проверяем, если прокрутка необходима
+//     Check if scrolling needed
+//	 Проверяем, если прокрутка необходима
     if (scrollViewOffsetY < 0) {
         return;
     }
@@ -259,8 +347,8 @@
     // Fix the icon and logo if necessary
 	// Fix значок и логотип , если это необходимо
     CGFloat bottomViewToCheck = self.iconImageView.frame.origin.y + self.iconImageView.frame.size.height;
-    // Only if the logo is party visible (happens for 3.5-inch device)
-	// Только еслилоготип является участником видно ( происходит из-за 3,5 - дюймовых устройств )
+//     Only if the logo is party visible (happens for 3.5-inch device)
+//	 Только еслилоготип является участником видно ( происходит из-за 3,5 - дюймовых устройств )
     if (scrollViewOffsetY > bottomViewToCheck) {
         return;
     }
@@ -274,7 +362,7 @@
                          [self.scrollView setContentOffset:CGPointMake(0.0f, scrollViewOffsetY) animated:NO];
 
                          if (yIconOffset != iconFrame.origin.y) {
-                             // Move icon
+//                              Move icon
 							 // Переместить значок
                              iconFrame.origin.y = yIconOffset + 20.0f;
                              self.iconImageView.frame = iconFrame;
@@ -294,29 +382,55 @@
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification {
-    NSDictionary *userInfo = [notification userInfo];
-    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGRect keyboardFrame = [self.view convertRect:endFrame fromView:self.view.window];
-    CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    UIViewAnimationCurve curve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+//    NSDictionary *userInfo = [notification userInfo];
+//    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    CGRect keyboardFrame = [self.view convertRect:endFrame fromView:self.view.window];
+//    CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+//    UIViewAnimationCurve curve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+//
+//    [UIView animateWithDuration:duration
+//                          delay:0.0
+//                        options:curve << 16 | UIViewAnimationOptionBeginFromCurrentState
+//                     animations:^{
+//                         [self.scrollView setContentOffset:CGPointZero animated:NO];
+//
+//                         if (self.iconImageView.frame.origin.y != self.iconImageViewOriginalY) {
+//                             CGRect iconFrame = self.iconImageView.frame;
+//                             iconFrame.origin.y = self.iconImageViewOriginalY;
+//                             self.iconImageView.frame = iconFrame;
+//
+//                             CGRect logoFrame = self.logoImageView.frame;
+//                             logoFrame.origin.y = self.iconImageViewOriginalY + self.iconLogoOffsetY;
+//                             self.logoImageView.frame = logoFrame;
+//                         }
+//                     }
+//                     completion:nil];
+}
 
-    [UIView animateWithDuration:duration
-                          delay:0.0
-                        options:curve << 16 | UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         [self.scrollView setContentOffset:CGPointZero animated:NO];
+- (IBAction)avatarButton:(id)sender {
+		picker2 = [[UIImagePickerController alloc] init];
+	picker2.delegate = self;
+	[picker2 setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+	[self presentModalViewController:picker2 animated:YES];
+}
 
-                         if (self.iconImageView.frame.origin.y != self.iconImageViewOriginalY) {
-                             CGRect iconFrame = self.iconImageView.frame;
-                             iconFrame.origin.y = self.iconImageViewOriginalY;
-                             self.iconImageView.frame = iconFrame;
+- (IBAction)agreementSwitch:(id)sender {
+	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"согласие с правилами" message:@"Это простой UIAlertView, он просто показывает сообщение" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+	[alert show];
+}
 
-                             CGRect logoFrame = self.logoImageView.frame;
-                             logoFrame.origin.y = self.iconImageViewOriginalY + self.iconLogoOffsetY;
-                             self.logoImageView.frame = logoFrame;
-                         }
-                     }
-                     completion:nil];
+
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+	UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+	_avatarImage = image;
+	[self.avatarImageView setImage:image];
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+	[self dismissModalViewControllerAnimated:YES];
+	
 }
 
 @end

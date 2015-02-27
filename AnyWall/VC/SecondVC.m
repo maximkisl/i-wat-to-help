@@ -354,39 +354,39 @@ PAWWallPostCreateViewControllerDataSource>
 	return nil;
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapVIew viewForAnnotation:(id<MKAnnotation>)annotation {
-	// Let the system handle user location annotations.
-	// Пусть система ручки аннотации местоположение пользователя .
-	if ([annotation isKindOfClass:[MKUserLocation class]]) {
-		return nil;
-	}
-	
-	static NSString *pinIdentifier = @"CustomPinAnnotation";
-	
-	// Handle any custom annotations.
-	// Обработка любые пользовательские аннотации .
-	if ([annotation isKindOfClass:[PAWPost class]]) {
-		// Try to dequeue an existing pin view first.
-		// Попытка из очереди существующего вида контактный первым.
-		MKPinAnnotationView *pinView = (MKPinAnnotationView*)[mapVIew dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
-		
-		if (!pinView) {
-			// If an existing pin view was not available, create one.
-			// Еслисуществующие Вид Контакт не был доступен , создайте ее.
-			pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
-													  reuseIdentifier:pinIdentifier];
-		} else {
-			pinView.annotation = annotation;
-		}
-		pinView.pinColor = [(PAWPost *)annotation pinColor];
-		pinView.animatesDrop = [((PAWPost *)annotation) animatesDrop];
-		pinView.canShowCallout = YES;
-		
-		return pinView;
-	}
-	
-	return nil;
-}
+//- (MKAnnotationView *)mapView:(MKMapView *)mapVIew viewForAnnotation:(id<MKAnnotation>)annotation {
+//	// Let the system handle user location annotations.
+//	// Пусть система ручки аннотации местоположение пользователя .
+//	if ([annotation isKindOfClass:[MKUserLocation class]]) {
+//		return nil;
+//	}
+//	
+//	static NSString *pinIdentifier = @"CustomPinAnnotation";
+//	
+//	// Handle any custom annotations.
+//	// Обработка любые пользовательские аннотации .
+//	if ([annotation isKindOfClass:[PAWPost class]]) {
+//		// Try to dequeue an existing pin view first.
+//		// Попытка из очереди существующего вида контактный первым.
+//		MKPinAnnotationView *pinView = (MKPinAnnotationView*)[mapVIew dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
+//		
+//		if (!pinView) {
+//			// If an existing pin view was not available, create one.
+//			// Еслисуществующие Вид Контакт не был доступен , создайте ее.
+//			pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+//													  reuseIdentifier:pinIdentifier];
+//		} else {
+//			pinView.annotation = annotation;
+//		}
+//		pinView.pinColor = [(PAWPost *)annotation pinColor];
+//		pinView.animatesDrop = [((PAWPost *)annotation) animatesDrop];
+//		pinView.canShowCallout = YES;
+//		
+//		return pinView;
+//	}
+//	
+//	return nil;
+//}
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
 	id<MKAnnotation> annotation = [view annotation];
