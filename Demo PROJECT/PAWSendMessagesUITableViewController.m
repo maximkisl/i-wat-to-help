@@ -608,7 +608,11 @@ PFUser *currentUser;
 	PFObject *blogpost = [PFObject objectWithClassName:@"BlogPost"];
 	
 	[blogpost setObject:trimmed forKey:@"message"];
-	
+		
+		[blogpost setObject:[PFUser currentUser].objectId forKey:@"userId"];
+
+		[blogpost setObject:[PFUser currentUser][@"firstname"] forKey:@"userName"];
+
 	[blogpost setObject:[PFUser currentUser] forKey:@"user"];
 	
 	PFUser *user = [PFUser currentUser];

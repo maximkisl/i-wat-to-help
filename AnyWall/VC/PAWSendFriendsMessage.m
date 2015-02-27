@@ -85,7 +85,7 @@ NSString* currentuser;
 	
 	PFQuery *mainQuery = [PFQuery orQueryWithSubqueries:@[query,query2,query3,query4]];
 	[mainQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
-		if(objects.count > 0){
+		
 				for (PFObject *object in objects) {
 				
 				  PFUser * userAuthor =	[object objectForKey:@"author"];
@@ -175,59 +175,60 @@ NSString* currentuser;
 					}];
 				}
 			
-					
-			}	 }
+					if(((check1 == YES) && (check2 == NO)) || ((check3 == NO) && (check4 == YES))){}
+					else
+					{
+						
+						
+						PFObject *blogpost = [PFObject objectWithClassName:@"BlogPost"];
+						
+						[blogpost setObject:self.textFiled.text forKey:@"message"];
+						
+						[blogpost setObject:[PFUser currentUser] forKey:@"user"];
+						
+						[blogpost setObject:[PFUser currentUser].objectId forKey:@"userId"];
+						
+						[blogpost setObject:[PFUser currentUser][@"smallavatar"] forKey:@"smallavatar"];
+						[blogpost setObject:[PFUser currentUser][@"firstname"] forKey:@"userName"];
+						
+						
+						PFObject *comment = [PFObject objectWithClassName:@"Comment"];
+						
+						[comment addUniqueObjectsFromArray:@[blogpost]forKey:@"messages"];
+						
+						[comment setObject:[PFUser currentUser].username forKey:@"autorUsername"];
+						
+						[comment setObject:user.username forKey:@"frendsUsername"];
+						
+						//				NSData *imageData = [[PFUser currentUser][@"smallavatar"] getData];
+						comment[@"smallavatar"] = [PFUser currentUser][@"smallavatar"];
+						
+						//				NSData *imageData2 = [user[@"smallavatar"] getData];
+						//
+						comment[@"smallavatarf"] = user[@"smallavatar"];
+						
+						comment[@"authorname"] = [PFUser currentUser][@"firstname"];
+						
+						comment[@"frendname"] = user[@"firstname"];
+						
+						[comment setObject:[PFUser currentUser] forKey:@"author"];
+						
+						[comment setObject:user forKey:@"frends"];
+						
+						[comment setObject:blogpost forKey:@"post"];
+						
+						[comment saveEventually:^(BOOL succeeded, NSError *error) {
+							if(succeeded){
+								PAWMessages *wallViewController = [[PAWMessages alloc] initWithNibName:nil bundle:nil];
+								//	wallViewController.delegate = self;
+								[self.navigationController setViewControllers:@[ wallViewController ] animated:NO];
+							}
+						}];
+					}
+	
+			}
 		
-		if(objects.count == 0)
-		{
-			
-			
-			PFObject *blogpost = [PFObject objectWithClassName:@"BlogPost"];
-			
-			[blogpost setObject:self.textFiled.text forKey:@"message"];
-			
-			[blogpost setObject:[PFUser currentUser] forKey:@"user"];
-			
-			[blogpost setObject:[PFUser currentUser].objectId forKey:@"userId"];
-			
-			[blogpost setObject:[PFUser currentUser][@"smallavatar"] forKey:@"smallavatar"];
-			[blogpost setObject:[PFUser currentUser][@"firstname"] forKey:@"userName"];
-			
-			
-			PFObject *comment = [PFObject objectWithClassName:@"Comment"];
-			
-			[comment addUniqueObjectsFromArray:@[blogpost]forKey:@"messages"];
-			
-			[comment setObject:[PFUser currentUser].username forKey:@"autorUsername"];
-			
-			[comment setObject:user.username forKey:@"frendsUsername"];
-			
-			//				NSData *imageData = [[PFUser currentUser][@"smallavatar"] getData];
-			comment[@"smallavatar"] = [PFUser currentUser][@"smallavatar"];
-			
-			//				NSData *imageData2 = [user[@"smallavatar"] getData];
-			//
-			comment[@"smallavatarf"] = user[@"smallavatar"];
-			
-			comment[@"authorname"] = [PFUser currentUser][@"firstname"];
-			
-			comment[@"frendname"] = user[@"firstname"];
-			
-			[comment setObject:[PFUser currentUser] forKey:@"author"];
-			
-			[comment setObject:user forKey:@"frends"];
-			
-			[comment setObject:blogpost forKey:@"post"];
-			
-			[comment saveEventually:^(BOOL succeeded, NSError *error) {
-				if(succeeded){
-					PAWMessages *wallViewController = [[PAWMessages alloc] initWithNibName:nil bundle:nil];
-					//	wallViewController.delegate = self;
-					[self.navigationController setViewControllers:@[ wallViewController ] animated:NO];
-				}
-			}];
-		}
-
+		
 	
 	
 	}];
